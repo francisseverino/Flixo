@@ -1,6 +1,6 @@
 export const BASE_URL = 'https://api.themoviedb.org/3';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
+export const API_KEY = process.env.REACT_APP_API_KEY;
 
 //Movie endpoints
 export const TRENDING = `/trending/all/week?api_key=${API_KEY}&language=en-US`;
@@ -14,12 +14,12 @@ export const DOCUMENTARIES = `/discover/tv?api_key=${API_KEY}&with_network=99`;
 
 export const requests = {
   trending: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
-  netflixOriginals: `/discover/tv?api_key=${API_KEY}&with_network=213`,
+  netflixOriginals: `/discover/tv?api_key=${API_KEY}&with_networks=213`,
   popular: `/movie/popular?api_key=${API_KEY}&language=en-US`,
   topRated: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
-  actionMovies: `/discover/tv?api_key=${API_KEY}&with_network=28`,
-  comedyMovies: `/discover/tv?api_key=${API_KEY}&with_network=35`,
-  horrorMovies: `/discover/tv?api_key=${API_KEY}&with_network=27`,
-  romanceMovies: `/discover/tv?api_key=${API_KEY}&with_network=10749`,
-  documentaries: `/discover/tv?api_key=${API_KEY}&with_network=99`,
+  actionMovies: `/discover/movie?api_key=${API_KEY}&with_genres=28`,
+  comedyMovies: `/discover/movie?api_key=${API_KEY}&with_genres=35`,
+  horrorMovies: `/discover/movie?api_key=${API_KEY}&with_genres=27`,
+  romanceMovies: `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
+  documentaries: `/discover/movie?api_key=${API_KEY}&with_genres=99`,
 };
