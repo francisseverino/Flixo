@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
-import { Row } from './components';
+import { Row, Banner } from './components';
 import { requests } from '../../api/constants';
 
 function App() {
   return (
     <div className='app'>
+      <Banner />
+
       <Row title='Netflix Originals' fetchUrl={requests.netflixOriginals} isLargeRow />
       <Row title='Trending Now' fetchUrl={requests.trending} />
       <Row title='Top Rated' fetchUrl={requests.topRated} />
