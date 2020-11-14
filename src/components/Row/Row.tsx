@@ -20,9 +20,11 @@ function Row(props: RowData) {
   const [trailerUrl, setTrailerUrl] = useState<string>('');
 
   useEffect(() => {
-    request(fetchUrl).then(response => {
-      setMovies(response.results);
-    });
+    request(fetchUrl)
+      .then(response => {
+        setMovies(response.results);
+      })
+      .catch(err => console.log(err));
   }, [fetchUrl]);
 
   const handleClick = (movie: MovieData) => {
