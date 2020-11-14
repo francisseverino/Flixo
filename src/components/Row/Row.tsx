@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import request from '../../../../api/helper';
-import './index.css';
+import request from '../../api/helper';
+import './Row.css';
 import { MovieData } from '../../types';
 import YouTube from 'react-youtube';
 const movieTrailer = require('movie-trailer');

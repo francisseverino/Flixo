@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import request from '../../../../api/helper';
-import { requests } from '../../../../api/constants';
+import request from '../../api/helper';
+import { requests } from '../../api/constants';
 import { MovieData } from '../../types';
-import './index.css';
+import './Banner.css';
 
 function Banner() {
   const [movie, setMovie] = useState<MovieData>();
