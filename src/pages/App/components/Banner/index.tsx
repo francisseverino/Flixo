@@ -14,6 +14,12 @@ function Banner() {
     });
   }, []);
 
+  // useEffect(() => {
+  //   request(`/movie/${movie?.id}/videos?api_key=${API_KEY}&language=en-US`).then(response => {
+  //     console.log(response);
+  //   });
+  // }, [movie]);
+
   const truncate = (str: string, n: number) => {
     return str?.length > n ? str.substr(0, n - 1) + '...' : str;
   };
