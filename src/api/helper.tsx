@@ -1,4 +1,4 @@
-import { SERVER_URL } from './constants';
+import { BASE_URL } from './constants';
 
 const request = async (url: string, method = 'get', payload = {}, contentType = 'application/json') => {
   return call(url, method, payload, contentType).then(response => {
@@ -10,7 +10,7 @@ const request = async (url: string, method = 'get', payload = {}, contentType = 
 };
 const call = async (url: string, method: string, payload = {}, contentType: string) => {
   const body = method === 'post' || method === 'put' ? JSON.stringify(payload) : undefined;
-  return fetch(`${SERVER_URL}${url}`, {
+  return fetch(`${BASE_URL}${url}`, {
     headers: {
       'Content-Type': contentType,
     },
