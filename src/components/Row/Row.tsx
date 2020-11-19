@@ -44,7 +44,7 @@ function Row(props: RowData) {
 
   return (
     <div className='row'>
-      <h2>{title}</h2>
+      <h2 className='row__title'>{title}</h2>
       <div className='row__posters'>
         {movies.map(movie => (
           <img
