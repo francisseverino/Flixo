@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import request from '../../../../api/helper';
-import './index.css';
+import request from '../../api/helper';
+import './Row.css';
 import { MovieData } from '../../types';
 import YouTube from 'react-youtube';
 const movieTrailer = require('movie-trailer');
@@ -20,9 +20,11 @@ function Row(props: RowData) {
   const [trailerUrl, setTrailerUrl] = useState<string>('');
 
   useEffect(() => {
-    request(fetchUrl).then(response => {
-      setMovies(response.results);
-    });
+    request(fetchUrl)
+      .then(response => {
+        setMovies(response.results);
+      })
+      .catch(err => console.log(err));
   }, [fetchUrl]);
 
   const handleClick = (movie: MovieData) => {
@@ -42,7 +44,7 @@ function Row(props: RowData) {
 
   return (
     <div className='row'>
-      <h2>{title}</h2>
+      <h2 className='row__title'>{title}</h2>
       <div className='row__posters'>
         {movies.map(movie => (
           <img

@@ -1,3 +1,5 @@
-import App from './App';
+import Home from './Home';
+import Movies from './Movies';
+import Shows from './Shows';
 
-export { App };
+export { Home, Movies, Shows };

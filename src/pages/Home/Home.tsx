@@ -1,12 +1,11 @@
 import React from 'react';
-import './App.css';
-import { Row, Banner, Nav } from './components';
+import './Home.css';
+import { Row, Banner } from '../../components';
 import { requests } from '../../api/constants';
 
-function App() {
+function Home() {
   return (
-    <div className='app'>
-      <Nav />
+    <div className='home'>
       <Banner />
 
       <Row title='Netflix Originals' fetchUrl={requests.netflixOriginals} isLargeRow />
@@ -21,4 +20,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
