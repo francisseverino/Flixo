@@ -3,6 +3,7 @@ import request from '../../api/helper';
 import './Row.css';
 import { MovieData } from '../../types';
 import YouTube from 'react-youtube';
+import { useHistory, Link } from 'react-router-dom';
 const movieTrailer = require('movie-trailer');
 
 interface RowData {
@@ -15,6 +16,7 @@ const BASE_URL = 'https://image.tmdb.org/t/p/original/';
 
 function Row(props: RowData) {
   const { title, fetchUrl, isLargeRow } = props;
+  const history = useHistory();
 
   const [movies, setMovies] = useState<Array<MovieData>>([]);
   const [trailerUrl, setTrailerUrl] = useState<string>('');
@@ -28,18 +30,19 @@ function Row(props: RowData) {
   }, [fetchUrl]);
 
   const handleClick = (movie: MovieData) => {
-    if (trailerUrl) {
-      setTrailerUrl('');
-    } else {
-      //TODO: find an alternative to movie-trailer
-      movieTrailer('finding nemo') //movie?.name || ''
-        .then((url: any) => {
-          console.log(url);
-          const urlParams = new URLSearchParams(new URL(url).search);
-          setTrailerUrl(urlParams.get('v') || '');
-        })
-        .catch((err: Error) => console.log(err));
-    }
+    history.push('/overview')
+    // if (trailerUrl) {
+    //   setTrailerUrl('');
+    // } else {
+    //   //TODO: find an alternative to movie-trailer
+    //   movieTrailer('finding nemo') //movie?.name || ''
+    //     .then((url: any) => {
+    //       console.log(url);
+    //       const urlParams = new URLSearchParams(new URL(url).search);
+    //       setTrailerUrl(urlParams.get('v') || '');
+    //     })
+    //     .catch((err: Error) => console.log(err));
+    // }
   };
 
   return (
