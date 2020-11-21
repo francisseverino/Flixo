@@ -30,7 +30,7 @@ function Row(props: RowData) {
   }, [fetchUrl]);
 
   const handleClick = (movie: MovieData) => {
-    history.push('/overview')
+    history.push(`/overview/${movie.id}`);
     // if (trailerUrl) {
     //   setTrailerUrl('');
     // } else {

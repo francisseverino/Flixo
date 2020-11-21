@@ -18,9 +18,7 @@ function App() {
         <Route path='/shows'>
           <Shows />
         </Route>
-        <Route path='/overview'>
-          <Overview />
-        </Route>
+        <Route path='/overview/:movieId' component={Overview} />
       </Switch>
     </Router>
   );
