@@ -9,16 +9,8 @@ describe('Row component', () => {
     })
 
     it('Test title text equals Trending', () => {
-        console.log('------------------')
-        console.log(wrapper.debug())
-        console.log('------------------')
-
         const row = wrapper.find('.row__title')
         expect(row.text()).toEqual('Trending')
-    })
-
-    it('Test something', () => {
-        // wrapper.setState()
     })
 })
 
