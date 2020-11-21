@@ -4,6 +4,11 @@ import { BASE_IMAGE_URL, API_KEY } from '../../api/constants';
 import './Overview.css';
 import * as FiIcons from 'react-icons/fi';
 
+interface genres {
+  id: number;
+  name: string;
+}
+
 interface MovieDetail {
   id: number;
   name: string;
@@ -14,7 +19,7 @@ interface MovieDetail {
   overview: string;
   release_date: string;
   runtime: number;
-  genres: Array<any>;
+  genres: Array<genres>;
   vote_average: number;
   vote_count: number;
 }

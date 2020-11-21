@@ -101,8 +101,8 @@ span {
     transition: all 0.2s;
 }
 
-.cast {
-}
+/* .cast {
+} */
 
 .cast__title {
     font-size: 20px;
@@ -123,12 +123,13 @@ span {
 .cast__star {
     display: flex;
     flex-direction: column;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 4px;
     transition: transform 450ms;
-    min-width: 140px;
-    width: 140px;
+    min-width: 138px;
+    width: 138px;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #111;
     padding-bottom: 10px;
 }
@@ -138,10 +139,12 @@ span {
 }
 
 .star__poster {
-    object-fit: contain;
+    /* object-fit: contain; */
     width: 100%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    height: 175px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    object-fit: cover;
 }
 
 .star__data {
