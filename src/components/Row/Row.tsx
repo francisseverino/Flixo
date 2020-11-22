@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import request from '../../api/helper';
 import './Row.css';
 import { MovieData } from '../../types';
-import YouTube from 'react-youtube';
-import { useHistory, Link } from 'react-router-dom';
-const movieTrailer = require('movie-trailer');
+import { useHistory } from 'react-router-dom';
 
 interface RowData {
   title: string;
@@ -19,7 +17,6 @@ function Row(props: RowData) {
   const history = useHistory();
 
   const [movies, setMovies] = useState<Array<MovieData>>([]);
-  const [trailerUrl, setTrailerUrl] = useState<string>('');
 
   useEffect(() => {
     request(fetchUrl)
@@ -31,18 +28,6 @@ function Row(props: RowData) {
 
   const handleClick = (movie: MovieData) => {
     history.push(`/overview/${movie.id}`);
-    // if (trailerUrl) {
-    //   setTrailerUrl('');
-    // } else {
-    //   //TODO: find an alternative to movie-trailer
-    //   movieTrailer('finding nemo') //movie?.name || ''
-    //     .then((url: any) => {
-    //       console.log(url);
-    //       const urlParams = new URLSearchParams(new URL(url).search);
-    //       setTrailerUrl(urlParams.get('v') || '');
-    //     })
-    //     .catch((err: Error) => console.log(err));
-    // }
   };
 
   return (
@@ -59,19 +44,6 @@ function Row(props: RowData) {
           />
         ))}
       </div>
-      {trailerUrl && (
-        <YouTube
-          videoId={trailerUrl}
-          opts={{
-            height: '390',
-            width: '100%',
-            playerVars: {
-              // https://developers.google.com/youtube/player_parameters
-              autoplay: 1,
-            },
-          }}
-        />
-      )}
     </div>
   );
 }

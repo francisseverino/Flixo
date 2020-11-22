@@ -15,11 +15,9 @@
   
   .modal {
     z-index: 99;
-    /* Everything below is optional styling */
     position: relative;
     width: 100%;
-    max-width: 320px;
-    max-height: 100%;
+    max-width: 1516px;
     margin: 0 auto;
   }
   
