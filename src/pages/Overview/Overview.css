@@ -11,7 +11,7 @@
     position:fixed;
     display: flex;
     justify-content: center;
-    padding-top: 140px;
+    padding-top: 60px;
     width: 100%;
     height: 100%;
     background-color: rgb(24, 24, 24, 0.6);
@@ -30,38 +30,76 @@
     max-width: 1300px;
 }
 
-.overview__contentsLeft {
-    flex:1;
+.overview__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.overview__contentsRight {
-    flex:1;
-    max-width: 50%;
+
+.overview__poster {
+    object-fit: contain;
+    width: 300px;
+    max-height: 450px;
+    margin-right: 40px;
+    border-radius: 10px;
 }
 
 .overview__title {
     font-size: 3rem;
     font-weight: 800;
-    padding-bottom: 0.3rem;
 }
 
 .overview__extra {
     display: flex;
-    font-size: 0.8rem;
-    color: #c6c6c6;
+    padding-top: 0.2rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
 }
 
-span {
+.overview__extra span {
     margin: 2px;
+}
+
+.rate {
+    display: flex;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+    align-items: center;
+}
+
+.rate__icon {
+    font-size: 2rem;
+    padding-right: 0.4rem;
+}
+
+.rate_rating {
+    font-weight: 550;
+    font-size: 1.2rem;
+}
+
+.rate_count {
+    font-weight: 350;
+    font-size: 0.8rem;
+}
+
+.overview__tagline {
+    opacity: 0.8;
+    font-style: italic;
+    padding-bottom: 1rem;
 }
 
 .overview__description {
     width: 45rem;
-    line-height: 1.9;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    font-size: 0.8rem;
-    max-width: 460px;
+    line-height: 1.4;
+    padding-bottom: 1.2rem;
+    font-size: 0.95rem;
+    /* max-width: 460px; */
+}
+
+.overview__descriptionTitle {
+    padding-bottom: 0.6rem;
+    font-size: 1.3rem;
 }
 
 .overview__button {
@@ -84,6 +122,8 @@ span {
 
 .overview__buttonIcon {
     padding-right: 8px;
+    /* font-weight: 500; */
+    font-size: 1rem;
 }
 
 .overview__button:hover {
@@ -92,9 +132,31 @@ span {
     transition: all 0.2s;
 }
 
+.cast {
+    max-width: 1300px;
+}
+
+.cast__titleContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
 .cast__title {
     font-size: 20px;
     font-weight: 550;
+}
+
+.cast__button {
+    display: flex;
+    cursor: pointer;
+    color: #fff;
+    outline: none;
+    font-weight: 700;
+    border: 0;
+    font-size: 1rem;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
 }
 
 .cast__stars {
