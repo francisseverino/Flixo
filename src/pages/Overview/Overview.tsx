@@ -164,6 +164,7 @@ function Overview(props: any) {
               >
                 <div className='video__container'>
                   <iframe
+                    title={movie?.title || movie?.name || movie?.original_name}
                     src={`https://www.youtube.com/embed/${trailer}`}
                     frameBorder='0'
                     allow='autoplay; encrypted-media'
