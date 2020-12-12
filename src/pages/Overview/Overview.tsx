@@ -77,13 +77,11 @@ function Overview(props: any) {
       <div className='cast'>
         <div className='cast__titleContainer'>
           <span className='cast__title'>Cast:</span>
-          {/* <span className='cast__title'>Cast:</span> */}
           <button className='cast__button'>
             View all credits
             <FiIcons.FiArrowRight />
           </button>
         </div>
-        {/* <h1 className='cast__title'>Cast:</h1> */}
 
         <div className='cast__stars'>
           {cast.map((star: any) => (
@@ -153,7 +151,7 @@ function Overview(props: any) {
                   <p className='rate_count'>{movie?.vote_count}</p>
                 </div>
               </div>
-              <p className='overview__tagline'>"{movie?.tagline}"</p>
+              {!movie?.tagline ? null : <p className='overview__tagline'>"{movie?.tagline}"</p>}
               <h1 className='overview__descriptionTitle'>Overview</h1>
               <p className='overview__description'>{truncate(movie?.overview || '', 550)}</p>
               <Modal

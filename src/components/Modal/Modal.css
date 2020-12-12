@@ -20,8 +20,35 @@
     max-width: 1516px;
     margin: 0 auto;
   }
-  
+
+
+  /* The Close Button */
   .modal__close {
+    display: flex;
+    position: absolute;
+    top: -1rem;
+    right: -0.75rem;
+    background-color: #fff;
+    color: rgb(174, 181, 188);
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+  }
+  
+  .modal__close:hover,
+  .modal__close:focus {
+    background-color: rgb(238, 116, 112);
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* .modal__close {
     position: absolute;
     top: -24px;
     right: 0;
@@ -31,7 +58,7 @@
     background: none;
     color: white;
     cursor: pointer;
-  }
+  } */
   
   .modal__body {
     padding: 20px 24px;
