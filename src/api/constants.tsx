@@ -1,12 +1,13 @@
 export const BASE_URL = 'https://api.themoviedb.org/3';
 
 export const API_KEY = process.env.REACT_APP_API_KEY;
-export const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/original/'
+export const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/original/';
 
 //Movie endpoints
 
 export const requests = {
-  trending: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
+  trendingAll: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
+  trending: `/trending/movie/week?api_key=${API_KEY}&language=en-US`,
   netflixOriginals: `/discover/tv?api_key=${API_KEY}&with_networks=213`,
   popular: `/movie/popular?api_key=${API_KEY}&language=en-US`,
   topRated: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
@@ -18,7 +19,7 @@ export const requests = {
 };
 
 export const showsRequests = {
-  trending: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
+  trending: `/trending/tv/week?api_key=${API_KEY}&language=en-US`,
   netflixOriginals: `/discover/tv?api_key=${API_KEY}&with_networks=213`,
   popular: `/tv/popular?api_key=${API_KEY}&language=en-US`,
   topRated: `/tv/top_rated?api_key=${API_KEY}&language=en-US`,

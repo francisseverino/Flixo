@@ -24,49 +24,62 @@ interface MovieDetail {
   genres: Array<genres>;
   vote_average: number;
   vote_count: number;
+  first_air_date: string;
 }
 
 function Overview(props: any) {
-  const movieId = props.match.params.movieId;
-  const [movie, setMovie] = React.useState<MovieDetail>();
+  const [type, multimediaId] = props.match.params.multimediaId.split('-');
+  console.log(props.match.params.multimediaId);
+  const [multimedia, setMultimedia] = React.useState<MovieDetail>();
   const [cast, setCast] = React.useState<any>([]);
   const [recommendations, setRecommendations] = React.useState<any>([]);
   const [videos, setVideos] = React.useState<any>([]);
   const [trailer, setTrailer] = React.useState<string>('');
 
   React.useEffect(() => {
-    request(`/movie/${movieId}?api_key=${API_KEY}&language=en-US`)
+    request(
+      type === 'movie'
+        ? `/movie/${multimediaId}?api_key=${API_KEY}&language=en-US`
+        : `/tv/${multimediaId}?api_key=${API_KEY}&language=en-US`
+    )
       .then(response => {
-        console.log(response);
-        setMovie(response);
+        setMultimedia(response);
       })
       .catch(err => console.log(err));
-  }, [movieId]);
+  }, [type, multimediaId]);
 
   React.useEffect(() => {
-    request(`/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`)
+    request(
+      type === 'movie'
+        ? `/movie/${multimediaId}/credits?api_key=${API_KEY}&language=en-US`
+        : `/tv/${multimediaId}/credits?api_key=${API_KEY}&language=en-US`
+    )
       .then(response => {
         // setCrew(response.crew)
         setCast(response.cast);
       })
       .catch(err => console.log(err));
-  }, [movieId]);
+  }, [type, multimediaId]);
 
   React.useEffect(() => {
-    request(`/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`)
+    request(
+      type === 'movie'
+        ? `/movie/${multimediaId}/videos?api_key=${API_KEY}&language=en-US`
+        : `/tv/${multimediaId}/videos?api_key=${API_KEY}&language=en-US`
+    )
       .then(response => {
         console.log(response);
         setVideos(response.results);
         setTrailer(response.results[0].key);
       })
       .catch(err => console.log(err));
-  }, [movieId]);
+  }, [type, multimediaId]);
 
   //   React.useEffect(() => {
-  //     request(`/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US`).then(response => {
+  //     request(`/movie/${multimediaId}/recommendations?api_key=${API_KEY}&language=en-US`).then(response => {
   //       setRecommendations(response);
   //     });
-  //   }, [movieId]);
+  //   }, [multimediaId]);
 
   const truncate = (str: string, n: number) => {
     return str?.length > n ? str.substr(0, n - 1) + '...' : str;
@@ -116,7 +129,7 @@ function Overview(props: any) {
       style={{
         backgroundSize: 'cover',
         backgroundImage: `url(
-            "${BASE_IMAGE_URL + movie?.backdrop_path}"
+            "${BASE_IMAGE_URL + multimedia?.backdrop_path}"
         )`,
         backgroundPosition: 'center center',
       }}
@@ -125,19 +138,21 @@ function Overview(props: any) {
         <div className='overview__contents'>
           <div className='overview__header'>
             <img
-              key={movie?.id}
+              key={multimedia?.id}
               className='overview__poster'
-              src={`${BASE_IMAGE_URL + movie?.poster_path}`}
-              alt={movie?.title || movie?.name || movie?.original_name}
+              src={`${BASE_IMAGE_URL + multimedia?.poster_path}`}
+              alt={multimedia?.title || multimedia?.name || multimedia?.original_name}
             />
             <div className='overview__right'>
-              <h1 className='overview__title'>{movie?.title || movie?.name || movie?.original_name}</h1>
+              <h1 className='overview__title'>{multimedia?.title || multimedia?.name || multimedia?.original_name}</h1>
               <div className='overview__extra'>
-                <span>{movie?.release_date.split('-')[0]}</span>
+                <span>
+                  {type === 'movie' ? multimedia?.release_date.split('-')[0] : multimedia?.first_air_date.split('-')[0]}
+                </span>
                 <span>•</span>
-                <span>{movie?.runtime} Mins</span>
+                <span>{multimedia?.runtime} Mins</span>
                 <span>•</span>
-                <span>{movie?.genres.map((g, i) => (i ? ', ' : '') + g.name)}</span>
+                <span>{multimedia?.genres.map((g, i) => (i ? ', ' : '') + g.name)}</span>
               </div>
               <div className='rate'>
                 <span>
@@ -145,15 +160,15 @@ function Overview(props: any) {
                 </span>
                 <div>
                   <p className='rate_rating'>
-                    {movie?.vote_average}
+                    {multimedia?.vote_average}
                     <span style={{ fontSize: 12, margin: 0, color: '#c6c6c6' }}>/10</span>
                   </p>
-                  <p className='rate_count'>{movie?.vote_count}</p>
+                  <p className='rate_count'>{multimedia?.vote_count}</p>
                 </div>
               </div>
-              {!movie?.tagline ? null : <p className='overview__tagline'>"{movie?.tagline}"</p>}
+              {!multimedia?.tagline ? null : <p className='overview__tagline'>"{multimedia?.tagline}"</p>}
               <h1 className='overview__descriptionTitle'>Overview</h1>
-              <p className='overview__description'>{truncate(movie?.overview || '', 550)}</p>
+              <p className='overview__description'>{truncate(multimedia?.overview || '', 550)}</p>
               <Modal
                 activator={({ setShow }: any) => (
                   <button className='overview__button' onClick={() => setShow(true)}>
@@ -164,7 +179,7 @@ function Overview(props: any) {
               >
                 <div className='video__container'>
                   <iframe
-                    title={movie?.title || movie?.name || movie?.original_name}
+                    title={multimedia?.title || multimedia?.name || multimedia?.original_name}
                     src={`https://www.youtube.com/embed/${trailer}`}
                     frameBorder='0'
                     allow='autoplay; encrypted-media'
