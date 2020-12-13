@@ -31,6 +31,7 @@ function Overview(props: any) {
   const [type, multimediaId] = props.match.params.multimediaId.split('-');
   console.log(props.match.params.multimediaId);
   const [multimedia, setMultimedia] = React.useState<MovieDetail>();
+  const [crew, setCrew] = React.useState<any>([]);
   const [cast, setCast] = React.useState<any>([]);
   const [recommendations, setRecommendations] = React.useState<any>([]);
   const [videos, setVideos] = React.useState<any>([]);
@@ -55,7 +56,8 @@ function Overview(props: any) {
         : `/tv/${multimediaId}/credits?api_key=${API_KEY}&language=en-US`
     )
       .then(response => {
-        // setCrew(response.crew)
+        console.log(response);
+        setCrew(response.crew);
         setCast(response.cast);
       })
       .catch(err => console.log(err));
@@ -85,15 +87,21 @@ function Overview(props: any) {
     return str?.length > n ? str.substr(0, n - 1) + '...' : str;
   };
 
-  const credits = () => {
+  const renderCast = () => {
     return (
       <div className='cast'>
         <div className='cast__titleContainer'>
           <span className='cast__title'>Cast:</span>
-          <button className='cast__button'>
-            View all credits
-            <FiIcons.FiArrowRight />
-          </button>
+          <Modal
+            activator={({ setShow }: any) => (
+              <button className='cast__button' onClick={() => setShow(true)}>
+                View all credits
+                <FiIcons.FiArrowRight />
+              </button>
+            )}
+          >
+            {renderCredits()}
+          </Modal>
         </div>
 
         <div className='cast__stars'>
@@ -118,6 +126,73 @@ function Overview(props: any) {
               <p className='star__character'>{star.character}</p>
             </div>
           ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderCredits = () => {
+    return (
+      <div className='credits'>
+        <div className='credits__container'>
+          <h1 className='credits__title'>
+            Series Cast <span>• {cast.length}</span>
+          </h1>
+          <div className='credits__list'>
+            {cast.map((credit: any) => (
+              <div className='credit' key={credit.id}>
+                {credit.profile_path ? (
+                  <img
+                    key={credit.id}
+                    className='credit__poster'
+                    src={`${BASE_IMAGE_URL}${credit.profile_path}`}
+                    alt={credit.name}
+                  />
+                ) : (
+                  <img
+                    key={credit.id}
+                    className='credit__poster'
+                    src='https://pbs.twimg.com/media/ESHtph2WAAMQAUR.jpg'
+                    alt={credit.name}
+                  />
+                )}
+                <div>
+                  <p className='credit__name'>{credit.name}</p>
+                  <p className='credit__character'>{credit.character}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className='credits__container'>
+          <h1 className='credits__title'>
+            Series Crew <span>• {crew.length}</span>
+          </h1>
+          <div className='credits__list'>
+            {crew.map((credit: any) => (
+              <div className='credit' key={credit.id}>
+                {credit.profile_path ? (
+                  <img
+                    key={credit.id}
+                    className='credit__poster'
+                    src={`${BASE_IMAGE_URL}${credit.profile_path}`}
+                    alt={credit.name}
+                  />
+                ) : (
+                  <img
+                    key={credit.id}
+                    className='credit__poster'
+                    src='https://pbs.twimg.com/media/ESHtph2WAAMQAUR.jpg'
+                    alt={credit.name}
+                  />
+                )}
+                <div>
+                  <p className='credit__name'>{credit.name}</p>
+                  <p className='credit__character'>{credit.job}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
@@ -189,7 +264,7 @@ function Overview(props: any) {
               </Modal>
             </div>
           </div>
-          {credits()}
+          {renderCast()}
         </div>
       </div>
     </div>
