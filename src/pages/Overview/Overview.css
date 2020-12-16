@@ -245,7 +245,7 @@
 
 .credits {
     max-width: 1300px;
-    max-height: 1200px;
+    max-height: 800px;
     display: flex;
     justify-content: space-around;
     overflow-y: scroll;

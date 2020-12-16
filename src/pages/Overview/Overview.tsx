@@ -2,6 +2,7 @@ import React from 'react';
 import request from '../../api/helper';
 import { BASE_IMAGE_URL, API_KEY } from '../../api/constants';
 import { Modal } from './../../components';
+import { tools } from '../../utils';
 import './Overview.css';
 import * as FiIcons from 'react-icons/fi';
 
@@ -82,10 +83,6 @@ function Overview(props: any) {
   //       setRecommendations(response);
   //     });
   //   }, [multimediaId]);
-
-  const truncate = (str: string, n: number) => {
-    return str?.length > n ? str.substr(0, n - 1) + '...' : str;
-  };
 
   const renderCast = () => {
     return (
@@ -243,7 +240,7 @@ function Overview(props: any) {
               </div>
               {!multimedia?.tagline ? null : <p className='overview__tagline'>"{multimedia?.tagline}"</p>}
               <h1 className='overview__descriptionTitle'>Overview</h1>
-              <p className='overview__description'>{truncate(multimedia?.overview || '', 550)}</p>
+              <p className='overview__description'>{tools.truncate(multimedia?.overview || '', 550)}</p>
               <Modal
                 activator={({ setShow }: any) => (
                   <button className='overview__button' onClick={() => setShow(true)}>

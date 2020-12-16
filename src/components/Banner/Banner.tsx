@@ -2,9 +2,12 @@ import React from 'react';
 import request from '../../api/helper';
 import { requests } from '../../api/constants';
 import { MultimediaData } from '../../types';
+import { useHistory } from 'react-router-dom';
+import { tools } from '../../utils';
 import './Banner.css';
 
 function Banner() {
+  const history = useHistory();
   const [multimedia, setMultimedia] = React.useState<MultimediaData>();
 
   React.useEffect(() => {
@@ -14,8 +17,9 @@ function Banner() {
     });
   }, []);
 
-  const truncate = (str: string, n: number) => {
-    return str?.length > n ? str.substr(0, n - 1) + '...' : str;
+  const handleClick = (multimedia: any) => {
+    const type = multimedia.first_air_date ? 'tv' : 'movie';
+    history.push(`/overview/${type}-${multimedia.id}`);
   };
 
   return (
@@ -32,10 +36,12 @@ function Banner() {
       <div className='banner__contents'>
         <h1 className='banner__title'>{multimedia?.title || multimedia?.name || multimedia?.original_name}</h1>
 
-        <h1 className='banner__description'>{truncate(multimedia?.overview || '', 150)}</h1>
+        <h1 className='banner__description'>{tools.truncate(multimedia?.overview || '', 150)}</h1>
         <div className='banner__buttons'>
           <button className='banner__button'>Play</button>
-          <button className='banner__button'>More Info</button>
+          <button className='banner__button' onClick={() => handleClick(multimedia)}>
+            More Info
+          </button>
         </div>
       </div>
 
