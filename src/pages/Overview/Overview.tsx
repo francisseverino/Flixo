@@ -30,13 +30,15 @@ interface MovieDetail {
 
 function Overview(props: any) {
   const [type, multimediaId] = props.match.params.multimediaId.split('-');
-  console.log(props.match.params.multimediaId);
   const [multimedia, setMultimedia] = React.useState<MovieDetail>();
   const [crew, setCrew] = React.useState<any>([]);
   const [cast, setCast] = React.useState<any>([]);
+  const [providers, setProviders] = React.useState<any>([]);
   const [recommendations, setRecommendations] = React.useState<any>([]);
   const [videos, setVideos] = React.useState<any>([]);
   const [trailer, setTrailer] = React.useState<string>('');
+
+  // https://www.themoviedb.org/movie/337401-mulan/remote/watch?translate=false&locale=US
 
   React.useEffect(() => {
     request(
@@ -57,7 +59,6 @@ function Overview(props: any) {
         : `/tv/${multimediaId}/credits?api_key=${API_KEY}&language=en-US`
     )
       .then(response => {
-        console.log(response);
         setCrew(response.crew);
         setCast(response.cast);
       })
@@ -71,9 +72,23 @@ function Overview(props: any) {
         : `/tv/${multimediaId}/videos?api_key=${API_KEY}&language=en-US`
     )
       .then(response => {
-        console.log(response);
         setVideos(response.results);
         setTrailer(response.results[0].key);
+      })
+      .catch(err => console.log(err));
+  }, [type, multimediaId]);
+
+  /**
+   * Fetch providers to watch
+   */
+  React.useEffect(() => {
+    request(
+      type === 'movie'
+        ? `/movie/${multimediaId}/watch/providers?api_key=${API_KEY}&language=en-US`
+        : `/tv/${multimediaId}/watch/providers?api_key=${API_KEY}&language=en-US`
+    )
+      .then(response => {
+        setProviders(response.results.US);
       })
       .catch(err => console.log(err));
   }, [type, multimediaId]);
@@ -124,6 +139,44 @@ function Overview(props: any) {
             </div>
           ))}
         </div>
+      </div>
+    );
+  };
+
+  const renderProviders = () => {
+    return (
+      <div className='providers'>
+        {providers && providers.rent ? (
+          <div>
+            <h1 className='providers__title'>Rent:</h1>
+            <div className='providers__container'>
+              {providers.rent.map((provider: any) => (
+                <img
+                  key={provider.provider_id}
+                  className='provider__poster'
+                  src={`${BASE_IMAGE_URL}${provider.logo_path}`}
+                  alt={provider.provider_name}
+                />
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+        {providers && providers.buy ? (
+          <div>
+            <h1 className='providers__title'>Buy:</h1>
+            <div className='providers__container'>
+              {providers.buy.map((provider: any) => (
+                <img
+                  key={provider.provider_id}
+                  className='provider__poster'
+                  src={`${BASE_IMAGE_URL}${provider.logo_path}`}
+                  alt={provider.provider_name}
+                />
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
     );
   };
@@ -259,6 +312,20 @@ function Overview(props: any) {
                   ></iframe>
                 </div>
               </Modal>
+              {providers && providers.buy ? (
+                <div>
+                  <div className='providers__container'>
+                    {providers.buy.map((provider: any) => (
+                      <img
+                        key={provider.provider_id}
+                        className='provider__poster'
+                        src={`${BASE_IMAGE_URL}${provider.logo_path}`}
+                        alt={provider.provider_name}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
           {renderCast()}

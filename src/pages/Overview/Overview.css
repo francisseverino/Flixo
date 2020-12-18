@@ -222,6 +222,7 @@
 
 /* YouTube iframe */
 .video__container {
+    display: flex;
     overflow: hidden;
     position: relative;
     width:100%;
@@ -316,4 +317,33 @@
 .credit__character {
     padding: 0 10px;
     font-size: 0.9rem;
+}
+
+.providers {
+    display: flex;
+    max-width: 800px;
+    max-height: 800px;
+}
+
+.providers__container {
+    display: flex;
+    overflow-y: scroll;
+    padding-top: 1.2rem;
+}
+
+.providers::-webkit-scrollbar {
+    display: none;
+}
+
+.providers__title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.provider__poster {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin: 0 0.3rem;
 }
