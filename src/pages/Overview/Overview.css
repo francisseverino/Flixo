@@ -63,8 +63,7 @@
 
 .rate {
     display: flex;
-    padding-top: 1.2rem;
-    padding-bottom: 1.2rem;
+    padding: 1.2rem 0;
     align-items: center;
 }
 
@@ -81,6 +80,16 @@
 .rate_count {
     font-weight: 350;
     font-size: 0.8rem;
+}
+
+.links {
+    padding-left: 1rem;
+}
+
+.link__icon {
+    font-size: 1.5rem;
+    padding: 0 0.5rem;
+    color: white;
 }
 
 .overview__tagline {

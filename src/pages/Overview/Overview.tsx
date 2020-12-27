@@ -5,7 +5,8 @@ import { Modal } from './../../components';
 import { tools } from '../../utils';
 import './Overview.css';
 import * as FiIcons from 'react-icons/fi';
-
+import * as FaIcons from 'react-icons/fa';
+import { Cast } from './components';
 interface genres {
   id: number;
   name: string;
@@ -26,6 +27,15 @@ interface MovieDetail {
   vote_average: number;
   vote_count: number;
   first_air_date: string;
+  homepage: string;
+}
+
+interface ExternalIds {
+  imdb_id: string;
+  facebook_id: string;
+  instagram_id: string;
+  twitter_id: string;
+  id: string;
 }
 
 function Overview(props: any) {
@@ -37,8 +47,46 @@ function Overview(props: any) {
   const [recommendations, setRecommendations] = React.useState<any>([]);
   const [videos, setVideos] = React.useState<any>([]);
   const [trailer, setTrailer] = React.useState<string>('');
+  const [externalIds, setExternalIds] = React.useState<ExternalIds>();
 
-  // https://www.themoviedb.org/movie/337401-mulan/remote/watch?translate=false&locale=US
+  const x = {
+    adult: false,
+    backdrop_path: '/wzJRB4MKi3yK138bJyuL9nx47y6.jpg',
+    belongs_to_collection: null,
+    budget: 205000000,
+    genres: [
+      { id: 28, name: 'Action' },
+      { id: 53, name: 'Thriller' },
+      { id: 878, name: 'Science Fiction' },
+    ],
+    homepage: 'https://www.tenetfilm.com/',
+    id: 577922,
+    imdb_id: 'tt6723592',
+    original_language: 'en',
+    original_title: 'Tenet',
+    overview:
+      'Armed with only one word - Tenet - and fighting for the survival of the entire world, the Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.',
+    popularity: 1498.768,
+    poster_path: '/k68nPLbIST6NP96JmTxmZijEvCA.jpg',
+    production_companies: [
+      { id: 9996, logo_path: '/3tvBqYsBhxWeHlu62SIJ1el93O7.png', name: 'Syncopy', origin_country: 'GB' },
+      { id: 174, logo_path: '/ky0xOc5OrhzkZ1N6KyUxacfQsCk.png', name: 'Warner Bros. Pictures', origin_country: 'US' },
+    ],
+    production_countries: [
+      { iso_3166_1: 'GB', name: 'United Kingdom' },
+      { iso_3166_1: 'US', name: 'United States of America' },
+    ],
+    release_date: '2020-08-22',
+    revenue: 359900000,
+    runtime: 150,
+    spoken_languages: [{ english_name: 'English', iso_639_1: 'en', name: 'English' }],
+    status: 'Released',
+    tagline: 'Time runs out.',
+    title: 'Tenet',
+    video: false,
+    vote_average: 7.4,
+    vote_count: 3189,
+  };
 
   React.useEffect(() => {
     request(
@@ -47,6 +95,7 @@ function Overview(props: any) {
         : `/tv/${multimediaId}?api_key=${API_KEY}&language=en-US`
     )
       .then(response => {
+        console.log(JSON.stringify(response));
         setMultimedia(response);
       })
       .catch(err => console.log(err));
@@ -93,55 +142,26 @@ function Overview(props: any) {
       .catch(err => console.log(err));
   }, [type, multimediaId]);
 
+  /**
+   * Fetch external IDs
+   */
+  React.useEffect(() => {
+    request(
+      type === 'movie'
+        ? `/movie/${multimediaId}/external_ids?api_key=${API_KEY}&language=en-US`
+        : `/tv/${multimediaId}/external_ids?api_key=${API_KEY}&language=en-US`
+    )
+      .then(response => {
+        setExternalIds(response);
+      })
+      .catch(err => console.log(err));
+  }, [type, multimediaId]);
+
   //   React.useEffect(() => {
   //     request(`/movie/${multimediaId}/recommendations?api_key=${API_KEY}&language=en-US`).then(response => {
   //       setRecommendations(response);
   //     });
   //   }, [multimediaId]);
-
-  const renderCast = () => {
-    return (
-      <div className='cast'>
-        <div className='cast__titleContainer'>
-          <span className='cast__title'>Cast:</span>
-          <Modal
-            activator={({ setShow }: any) => (
-              <button className='cast__button' onClick={() => setShow(true)}>
-                View all credits
-                <FiIcons.FiArrowRight />
-              </button>
-            )}
-          >
-            {renderCredits()}
-          </Modal>
-        </div>
-
-        <div className='cast__stars'>
-          {cast.map((star: any) => (
-            <div className='cast__star' key={star.id}>
-              {star.profile_path ? (
-                <img
-                  key={star.id}
-                  className='star__poster'
-                  src={`${BASE_IMAGE_URL}${star.profile_path}`}
-                  alt={star.name}
-                />
-              ) : (
-                <img
-                  key={star.id}
-                  className='star__poster'
-                  src='https://pbs.twimg.com/media/ESHtph2WAAMQAUR.jpg'
-                  alt={star.name}
-                />
-              )}
-              <p className='star__name'>{star.name}</p>
-              <p className='star__character'>{star.character}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
 
   const renderProviders = () => {
     return (
@@ -181,69 +201,72 @@ function Overview(props: any) {
     );
   };
 
-  const renderCredits = () => {
+  // const renderLastEpisode = () => {
+  //   const { id, name, season_number, air_date, episode_number, overview, still_path } = multimedia.last_episode_to_air;
+  //   const multimediaName = multimedia?.title || multimedia?.name || multimedia?.original_name;
+  //   const x = {
+  //     last_episode_to_air: {
+  //       air_date: '2020-12-04',
+  //       episode_number: 9,
+  //       id: 2543528,
+  //       name: 'Qué Creías',
+  //       overview:
+  //         'Selena feels conflicted about her secret relationship with Chris. Meanwhile, AB finds inspiration in a memory of a plastic flower and lost love.',
+  //       production_code: '',
+  //       season_number: 1,
+  //       still_path: '/fmbgTdQ40KLSJ0RYaZzJVWYaspl.jpg',
+  //       vote_average: 0,
+  //       vote_count: 0,
+  //     },
+  //   };
+  //   return type === 'movie' ? null : (
+  //     <div>
+  //       <img key={id} className='star__poster' src={`${BASE_IMAGE_URL}${still_path}`} alt={name} />
+  //       <div>
+  //         <h1>Season {season_number}</h1>
+  //         <h1>
+  //           {air_date.split('-')[0]} | {episode_number} Episodes
+  //         </h1>
+  //         <p>
+  //           Season {season_number} of {multimediaName} premiered on {air_date}
+  //         </p>
+  //         <p>{overview}</p>
+  //       </div>
+  //     </div>
+  //   );
+  // };
+
+  const renderExternalsIds = () => {
+    // externalIds
     return (
-      <div className='credits'>
-        <div className='credits__container'>
-          <h1 className='credits__title'>
-            Series Cast <span>• {cast.length}</span>
-          </h1>
-          <div className='credits__list'>
-            {cast.map((credit: any) => (
-              <div className='credit' key={credit.id}>
-                {credit.profile_path ? (
-                  <img
-                    key={credit.id}
-                    className='credit__poster'
-                    src={`${BASE_IMAGE_URL}${credit.profile_path}`}
-                    alt={credit.name}
-                  />
-                ) : (
-                  <img
-                    key={credit.id}
-                    className='credit__poster'
-                    src='https://pbs.twimg.com/media/ESHtph2WAAMQAUR.jpg'
-                    alt={credit.name}
-                  />
-                )}
-                <div>
-                  <p className='credit__name'>{credit.name}</p>
-                  <p className='credit__character'>{credit.character}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className='credits__container'>
-          <h1 className='credits__title'>
-            Series Crew <span>• {crew.length}</span>
-          </h1>
-          <div className='credits__list'>
-            {crew.map((credit: any) => (
-              <div className='credit' key={credit.id}>
-                {credit.profile_path ? (
-                  <img
-                    key={credit.id}
-                    className='credit__poster'
-                    src={`${BASE_IMAGE_URL}${credit.profile_path}`}
-                    alt={credit.name}
-                  />
-                ) : (
-                  <img
-                    key={credit.id}
-                    className='credit__poster'
-                    src='https://pbs.twimg.com/media/ESHtph2WAAMQAUR.jpg'
-                    alt={credit.name}
-                  />
-                )}
-                <div>
-                  <p className='credit__name'>{credit.name}</p>
-                  <p className='credit__character'>{credit.job}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className='links'>
+        <a href={multimedia?.homepage} target='_blank'>
+          <FiIcons.FiLink className='link__icon' />
+        </a>
+        {externalIds ? (
+          <>
+            {externalIds.facebook_id ? (
+              <a href={`https://www.facebook.com/${externalIds.facebook_id}`} target='_blank'>
+                <FiIcons.FiFacebook className='link__icon' />
+              </a>
+            ) : null}
+            {externalIds.instagram_id ? (
+              <a href={`https://www.instagram.com/${externalIds.instagram_id}`} target='_blank'>
+                <FiIcons.FiInstagram className='link__icon' />
+              </a>
+            ) : null}
+            {externalIds.twitter_id ? (
+              <a href={`https://www.twitter.com/${externalIds.twitter_id}`} target='_blank'>
+                <FiIcons.FiTwitter className='link__icon' />
+              </a>
+            ) : null}
+            {externalIds.imdb_id ? (
+              <a href={`https://www.imdb.com/title/${externalIds.imdb_id}`} target='_blank'>
+                <FaIcons.FaImdb className='link__icon' />
+              </a>
+            ) : null}
+          </>
+        ) : null}
       </div>
     );
   };
@@ -290,6 +313,7 @@ function Overview(props: any) {
                   </p>
                   <p className='rate_count'>{multimedia?.vote_count}</p>
                 </div>
+                {renderExternalsIds()}
               </div>
               {!multimedia?.tagline ? null : <p className='overview__tagline'>"{multimedia?.tagline}"</p>}
               <h1 className='overview__descriptionTitle'>Overview</h1>
@@ -328,7 +352,7 @@ function Overview(props: any) {
               ) : null}
             </div>
           </div>
-          {renderCast()}
+          <Cast cast={cast} crew={crew} />
         </div>
       </div>
     </div>
