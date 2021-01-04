@@ -1,0 +1,91 @@
+.seasons {
+    background-color: #111;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding: 20px;
+}
+
+.seasons::-webkit-scrollbar {
+    display: none;
+}
+
+.multimedia__name {
+    padding: 0.5rem 0;
+    text-align: center;
+    font-weight: 400;
+    font-size: 2rem;
+    color: #fff;
+}
+
+/* .multimedia__name span{
+    font-size: 1.4rem;
+    color: rgba(225,225,225,0.6);
+
+} */
+
+.season {
+
+}
+
+.season__poster {
+    object-fit: contain;
+    width: 200px;
+    max-height: 200px;
+    margin-right: 10px;
+    transition: transform 450ms;
+    border-radius: 10px;
+}
+
+.season__release {
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.season__overview {
+    font-weight: 400;
+    font-size: 1rem;
+    color: rgba(225,225,225,0.6);
+
+}
+
+.episodes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+}
+.episode {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    margin: 8px
+    /* flex-direction: column; */
+}
+
+.episode__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.episode__poster {
+    object-fit: contain;
+    /* width: 180px; */
+    height: 220px;
+    /* margin: 10px 10px; */
+    border-radius: 10px;
+}
+
+.episode__name {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.episode__overview {
+    /* max-width: 80%; */
+    font-size: 0.8rem;
+    color: rgba(225,225,225,0.6);
+}

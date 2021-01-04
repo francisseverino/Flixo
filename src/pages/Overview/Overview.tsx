@@ -6,10 +6,22 @@ import { tools } from '../../utils';
 import './Overview.css';
 import * as FiIcons from 'react-icons/fi';
 import * as FaIcons from 'react-icons/fa';
-import { Cast } from './components';
+import { Cast, Seasons } from './components';
 interface genres {
   id: number;
   name: string;
+}
+
+interface Episode {
+  id: string;
+  name: string;
+  season_number: string;
+  air_date: string;
+  episode_number: string;
+  overview: string;
+  still_path: string;
+  vote_average: string;
+  vote_count: string;
 }
 
 interface MovieDetail {
@@ -28,6 +40,7 @@ interface MovieDetail {
   vote_count: number;
   first_air_date: string;
   homepage: string;
+  last_episode_to_air: Episode;
 }
 
 interface ExternalIds {
@@ -48,6 +61,7 @@ function Overview(props: any) {
   const [videos, setVideos] = React.useState<any>([]);
   const [trailer, setTrailer] = React.useState<string>('');
   const [externalIds, setExternalIds] = React.useState<ExternalIds>();
+  const [seasons, setSeasons] = React.useState<any>([]);
 
   const x = {
     adult: false,
@@ -97,6 +111,9 @@ function Overview(props: any) {
       .then(response => {
         console.log(JSON.stringify(response));
         setMultimedia(response);
+        if (type === 'tv') {
+          getSeasons(response.number_of_seasons);
+        }
       })
       .catch(err => console.log(err));
   }, [type, multimediaId]);
@@ -157,6 +174,23 @@ function Overview(props: any) {
       .catch(err => console.log(err));
   }, [type, multimediaId]);
 
+  /**
+   * Fetch Season's episodes
+   */
+  const getSeasons = (numberOfSeasons: number) => {
+    if (type === 'movie') {
+      return;
+    }
+    setSeasons([]);
+    for (let n = 0; n <= numberOfSeasons; n++) {
+      request(`/tv/${multimediaId}/season/${n}?api_key=${API_KEY}&language=en-US`)
+        .then(response => {
+          setSeasons((prevEpisodes: any) => prevEpisodes.concat(response));
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
   //   React.useEffect(() => {
   //     request(`/movie/${multimediaId}/recommendations?api_key=${API_KEY}&language=en-US`).then(response => {
   //       setRecommendations(response);
@@ -201,67 +235,32 @@ function Overview(props: any) {
     );
   };
 
-  // const renderLastEpisode = () => {
-  //   const { id, name, season_number, air_date, episode_number, overview, still_path } = multimedia.last_episode_to_air;
-  //   const multimediaName = multimedia?.title || multimedia?.name || multimedia?.original_name;
-  //   const x = {
-  //     last_episode_to_air: {
-  //       air_date: '2020-12-04',
-  //       episode_number: 9,
-  //       id: 2543528,
-  //       name: 'Qué Creías',
-  //       overview:
-  //         'Selena feels conflicted about her secret relationship with Chris. Meanwhile, AB finds inspiration in a memory of a plastic flower and lost love.',
-  //       production_code: '',
-  //       season_number: 1,
-  //       still_path: '/fmbgTdQ40KLSJ0RYaZzJVWYaspl.jpg',
-  //       vote_average: 0,
-  //       vote_count: 0,
-  //     },
-  //   };
-  //   return type === 'movie' ? null : (
-  //     <div>
-  //       <img key={id} className='star__poster' src={`${BASE_IMAGE_URL}${still_path}`} alt={name} />
-  //       <div>
-  //         <h1>Season {season_number}</h1>
-  //         <h1>
-  //           {air_date.split('-')[0]} | {episode_number} Episodes
-  //         </h1>
-  //         <p>
-  //           Season {season_number} of {multimediaName} premiered on {air_date}
-  //         </p>
-  //         <p>{overview}</p>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
   const renderExternalsIds = () => {
     // externalIds
     return (
       <div className='links'>
-        <a href={multimedia?.homepage} target='_blank'>
+        <a href={multimedia?.homepage} target='_blank' rel='noreferrer'>
           <FiIcons.FiLink className='link__icon' />
         </a>
         {externalIds ? (
           <>
             {externalIds.facebook_id ? (
-              <a href={`https://www.facebook.com/${externalIds.facebook_id}`} target='_blank'>
+              <a href={`https://www.facebook.com/${externalIds.facebook_id}`} target='_blank' rel='noreferrer'>
                 <FiIcons.FiFacebook className='link__icon' />
               </a>
             ) : null}
             {externalIds.instagram_id ? (
-              <a href={`https://www.instagram.com/${externalIds.instagram_id}`} target='_blank'>
+              <a href={`https://www.instagram.com/${externalIds.instagram_id}`} target='_blank' rel='noreferrer'>
                 <FiIcons.FiInstagram className='link__icon' />
               </a>
             ) : null}
             {externalIds.twitter_id ? (
-              <a href={`https://www.twitter.com/${externalIds.twitter_id}`} target='_blank'>
+              <a href={`https://www.twitter.com/${externalIds.twitter_id}`} target='_blank' rel='noreferrer'>
                 <FiIcons.FiTwitter className='link__icon' />
               </a>
             ) : null}
             {externalIds.imdb_id ? (
-              <a href={`https://www.imdb.com/title/${externalIds.imdb_id}`} target='_blank'>
+              <a href={`https://www.imdb.com/title/${externalIds.imdb_id}`} target='_blank' rel='noreferrer'>
                 <FaIcons.FaImdb className='link__icon' />
               </a>
             ) : null}
@@ -352,7 +351,10 @@ function Overview(props: any) {
               ) : null}
             </div>
           </div>
-          <Cast cast={cast} crew={crew} />
+          <div className='overview__footer'>
+            {seasons.length === 0 ? null : <Seasons seasons={seasons} multimedia={multimedia} />}
+            {/* <Cast cast={cast} crew={crew} /> */}
+          </div>
         </div>
       </div>
     </div>

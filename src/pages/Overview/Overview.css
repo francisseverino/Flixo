@@ -28,6 +28,11 @@
     display: flex;
     flex-wrap: wrap;
     max-width: 1300px;
+    overflow-y: scroll;
+}
+
+.overview__contents::-webkit-scrollbar {
+    display: none;
 }
 
 .overview__header {
@@ -99,7 +104,7 @@
 }
 
 .overview__description {
-    width: 45rem;
+    /* width: 45rem; */
     line-height: 1.4;
     padding-bottom: 1.2rem;
     font-size: 0.95rem;
