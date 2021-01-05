@@ -1,8 +1,8 @@
 import React from 'react';
-import { BASE_IMAGE_URL } from '../../../api/constants';
-import { Modal } from './../../../components';
-// import './Overview.css';
+import { BASE_IMAGE_URL } from '../../../../api/constants';
+import { Modal } from './../../../../components';
 import * as FiIcons from 'react-icons/fi';
+import './Cast.css';
 
 interface Cast {
   cast: any;

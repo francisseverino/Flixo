@@ -63,45 +63,6 @@ function Overview(props: any) {
   const [externalIds, setExternalIds] = React.useState<ExternalIds>();
   const [seasons, setSeasons] = React.useState<any>([]);
 
-  const x = {
-    adult: false,
-    backdrop_path: '/wzJRB4MKi3yK138bJyuL9nx47y6.jpg',
-    belongs_to_collection: null,
-    budget: 205000000,
-    genres: [
-      { id: 28, name: 'Action' },
-      { id: 53, name: 'Thriller' },
-      { id: 878, name: 'Science Fiction' },
-    ],
-    homepage: 'https://www.tenetfilm.com/',
-    id: 577922,
-    imdb_id: 'tt6723592',
-    original_language: 'en',
-    original_title: 'Tenet',
-    overview:
-      'Armed with only one word - Tenet - and fighting for the survival of the entire world, the Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.',
-    popularity: 1498.768,
-    poster_path: '/k68nPLbIST6NP96JmTxmZijEvCA.jpg',
-    production_companies: [
-      { id: 9996, logo_path: '/3tvBqYsBhxWeHlu62SIJ1el93O7.png', name: 'Syncopy', origin_country: 'GB' },
-      { id: 174, logo_path: '/ky0xOc5OrhzkZ1N6KyUxacfQsCk.png', name: 'Warner Bros. Pictures', origin_country: 'US' },
-    ],
-    production_countries: [
-      { iso_3166_1: 'GB', name: 'United Kingdom' },
-      { iso_3166_1: 'US', name: 'United States of America' },
-    ],
-    release_date: '2020-08-22',
-    revenue: 359900000,
-    runtime: 150,
-    spoken_languages: [{ english_name: 'English', iso_639_1: 'en', name: 'English' }],
-    status: 'Released',
-    tagline: 'Time runs out.',
-    title: 'Tenet',
-    video: false,
-    vote_average: 7.4,
-    vote_count: 3189,
-  };
-
   React.useEffect(() => {
     request(
       type === 'movie'
@@ -109,7 +70,6 @@ function Overview(props: any) {
         : `/tv/${multimediaId}?api_key=${API_KEY}&language=en-US`
     )
       .then(response => {
-        console.log(JSON.stringify(response));
         setMultimedia(response);
         if (type === 'tv') {
           getSeasons(response.number_of_seasons);
@@ -271,19 +231,19 @@ function Overview(props: any) {
   };
 
   return (
-    <div
-      className='overview'
-      style={{
-        backgroundSize: 'cover',
-        backgroundImage: `url(
+    <div className='overview'>
+      <div
+        className='overview__header'
+        style={{
+          backgroundSize: 'cover',
+          backgroundImage: `url(
             "${BASE_IMAGE_URL + multimedia?.backdrop_path}"
         )`,
-        backgroundPosition: 'center center',
-      }}
-    >
-      <div className='overview__overlay'>
-        <div className='overview__contents'>
-          <div className='overview__header'>
+          backgroundPosition: 'center center',
+        }}
+      >
+        <div className='overview__headerOverlay'>
+          <div className='overview__headerContents'>
             <img
               key={multimedia?.id}
               className='overview__poster'
@@ -351,10 +311,17 @@ function Overview(props: any) {
               ) : null}
             </div>
           </div>
-          <div className='overview__footer'>
-            {seasons.length === 0 ? null : <Seasons seasons={seasons} multimedia={multimedia} />}
-            {/* <Cast cast={cast} crew={crew} /> */}
+          <div className='overview__headerGradient'>
+            <div className='overview__footerButton'>
+              <FiIcons.FiChevronDown />
+            </div>
           </div>
+        </div>
+      </div>
+      <div className='overview__footer'>
+        <div className='overview__footerContent'>
+          {seasons.length === 0 ? null : <Seasons seasons={seasons} />}
+          <Cast cast={cast} crew={crew} />
         </div>
       </div>
     </div>
