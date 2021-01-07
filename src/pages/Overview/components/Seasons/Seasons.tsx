@@ -8,9 +8,9 @@ function Seasons(props: any) {
   const [selectedSeasonNumber, setSelectedSeasonNumber] = React.useState<any>(0);
 
   const handleSelectChange = (e: any) => {
-    const index = e.target.value;
-    setSelectedSeasonNumber(index);
-    setSelectedSeason(seasons[index - 1]);
+    const seasonNumber = e.target.value;
+    setSelectedSeasonNumber(seasonNumber);
+    setSelectedSeason(seasons.find((season: any) => season.season_number === parseInt(seasonNumber)));
   };
 
   return (
@@ -41,7 +41,9 @@ function Seasons(props: any) {
               src={`${BASE_IMAGE_URL}${episode.still_path}`}
               alt={episode.name}
             />
-            <h1 className='episode__name'>{episode.name}</h1>
+            <h1 className='episode__name'>
+              {episode.episode_number}. {episode.name}
+            </h1>
             <p className='episode__overview'>{episode.overview}</p>
           </div>
         ))}

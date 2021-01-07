@@ -7,6 +7,7 @@ import './Overview.css';
 import * as FiIcons from 'react-icons/fi';
 import * as FaIcons from 'react-icons/fa';
 import { Cast, Seasons } from './components';
+import { useHistory } from 'react-router-dom';
 interface genres {
   id: number;
   name: string;
@@ -63,6 +64,8 @@ function Overview(props: any) {
   const [externalIds, setExternalIds] = React.useState<ExternalIds>();
   const [seasons, setSeasons] = React.useState<any>([]);
 
+  const history = useHistory();
+
   React.useEffect(() => {
     request(
       type === 'movie'
@@ -100,6 +103,21 @@ function Overview(props: any) {
       .then(response => {
         setVideos(response.results);
         setTrailer(response.results[0].key);
+      })
+      .catch(err => console.log(err));
+  }, [type, multimediaId]);
+
+  /**
+   * Fetch recommendations
+   */
+  React.useEffect(() => {
+    request(
+      type === 'movie'
+        ? `/movie/${multimediaId}/recommendations?api_key=${API_KEY}&language=en-US`
+        : `/tv/${multimediaId}/recommendations?api_key=${API_KEY}&language=en-US`
+    )
+      .then(response => {
+        setRecommendations(response.results);
       })
       .catch(err => console.log(err));
   }, [type, multimediaId]);
@@ -230,6 +248,11 @@ function Overview(props: any) {
     );
   };
 
+  const handleClick = (selectedMultimedia: any) => {
+    const type = selectedMultimedia.first_air_date ? 'tv' : 'movie';
+    history.push(`/overview/${type}-${selectedMultimedia.id}`);
+  };
+
   return (
     <div className='overview'>
       <div
@@ -322,6 +345,36 @@ function Overview(props: any) {
         <div className='overview__footerContent'>
           {seasons.length === 0 ? null : <Seasons seasons={seasons} />}
           <Cast cast={cast} crew={crew} />
+          <div>
+            <h1 className='footer__sectionTitle'>Recommendations</h1>
+            <div className='videos'>
+              {videos.map((video: any) => (
+                <div className='video'>
+                  <iframe
+                    title={multimedia?.title || multimedia?.name || multimedia?.original_name}
+                    src={`https://www.youtube.com/embed/${video.key}`}
+                    frameBorder='0'
+                    allow='autoplay; encrypted-media'
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h1 className='footer__sectionTitle'>Recommendations</h1>
+            <div className='recommendations'>
+              {recommendations.map((recommendation: any) => (
+                <img
+                  key={recommendation.id}
+                  onClick={() => handleClick(recommendation)}
+                  className='recommendation__poster'
+                  src={`${BASE_IMAGE_URL}${recommendation.poster_path}`}
+                  alt={recommendation.title || recommendation.name || recommendation.original_name}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
