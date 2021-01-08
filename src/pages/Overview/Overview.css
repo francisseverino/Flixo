@@ -67,11 +67,7 @@
 
 .overview__footerContent {
     max-width: 1544px;
-
 }
-
-
-
 
 .overview__poster {
     object-fit: contain;
@@ -251,8 +247,8 @@
 
 .footer__sectionTitle {
     color: #fff;
-    padding: 1rem 0;
-    text-align: center;
+    padding: 2rem 0 0.5rem 0;
+    /* text-align: center; */
     font-weight: 400;
     font-size: 2rem;
 }
