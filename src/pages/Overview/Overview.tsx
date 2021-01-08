@@ -346,7 +346,7 @@ function Overview(props: any) {
           {seasons.length === 0 ? null : <Seasons seasons={seasons} />}
           <Cast cast={cast} crew={crew} />
           <div>
-            <h1 className='footer__sectionTitle'>Recommendations</h1>
+            <h1 className='footer__sectionTitle'>Videos</h1>
             <div className='videos'>
               {videos.map((video: any) => (
                 <div className='video'>
