@@ -261,22 +261,19 @@
 
 .video {
     display: flex;
-    overflow: hidden;
     position: relative;
-    width:100%;
+    padding: 0 10px 0 4px;
 }
 
 .video::after {
     padding-top: 56.25%;
     display: block;
     content: '';
+    
 }
 
 .video iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    width: 500px;
     height: 100%;
 }
 
