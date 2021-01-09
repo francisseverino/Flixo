@@ -169,50 +169,6 @@ function Overview(props: any) {
     }
   };
 
-  //   React.useEffect(() => {
-  //     request(`/movie/${multimediaId}/recommendations?api_key=${API_KEY}&language=en-US`).then(response => {
-  //       setRecommendations(response);
-  //     });
-  //   }, [multimediaId]);
-
-  const renderProviders = () => {
-    return (
-      <div className='providers'>
-        {providers && providers.rent ? (
-          <div>
-            <h1 className='providers__title'>Rent:</h1>
-            <div className='providers__container'>
-              {providers.rent.map((provider: any) => (
-                <img
-                  key={provider.provider_id}
-                  className='provider__poster'
-                  src={`${BASE_IMAGE_URL}${provider.logo_path}`}
-                  alt={provider.provider_name}
-                />
-              ))}
-            </div>
-          </div>
-        ) : null}
-
-        {providers && providers.buy ? (
-          <div>
-            <h1 className='providers__title'>Buy:</h1>
-            <div className='providers__container'>
-              {providers.buy.map((provider: any) => (
-                <img
-                  key={provider.provider_id}
-                  className='provider__poster'
-                  src={`${BASE_IMAGE_URL}${provider.logo_path}`}
-                  alt={provider.provider_name}
-                />
-              ))}
-            </div>
-          </div>
-        ) : null}
-      </div>
-    );
-  };
-
   const renderExternalsIds = () => {
     // externalIds
     return (
@@ -251,6 +207,8 @@ function Overview(props: any) {
   const handleClick = (selectedMultimedia: any) => {
     const type = selectedMultimedia.first_air_date ? 'tv' : 'movie';
     history.push(`/overview/${type}-${selectedMultimedia.id}`);
+    window.location.reload();
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -349,7 +307,7 @@ function Overview(props: any) {
             <h1 className='footer__sectionTitle'>Videos</h1>
             <div className='videos'>
               {videos.map((video: any) => (
-                <div className='video'>
+                <div className='video' key={video.id}>
                   <iframe
                     title={multimedia?.title || multimedia?.name || multimedia?.original_name}
                     src={`https://www.youtube.com/embed/${video.key}`}
