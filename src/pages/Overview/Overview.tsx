@@ -170,7 +170,6 @@ function Overview(props: any) {
   };
 
   const renderExternalsIds = () => {
-    // externalIds
     return (
       <div className='links'>
         <a href={multimedia?.homepage} target='_blank' rel='noreferrer'>
@@ -301,7 +300,7 @@ function Overview(props: any) {
       </div>
       <div className='overview__footer'>
         <div className='overview__footerContent'>
-          {seasons.length === 0 ? null : <Seasons seasons={seasons} />}
+          {seasons.length === 0 ? null : <Seasons seasons={seasons} multimedia={multimedia} />}
           <Cast cast={cast} crew={crew} />
           <div>
             <h1 className='footer__sectionTitle'>Videos</h1>

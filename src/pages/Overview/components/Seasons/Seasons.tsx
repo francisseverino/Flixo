@@ -2,10 +2,14 @@ import React from 'react';
 import { BASE_IMAGE_URL } from '../../../../api/constants';
 import './Seasons.css';
 
+const DEFAULT_EPISODE_NUMBER = 8;
+
 function Seasons(props: any) {
-  const { seasons } = props;
+  const { seasons, multimedia } = props;
   const [selectedSeason, setSelectedSeason] = React.useState<any>(seasons[0]);
   const [selectedSeasonNumber, setSelectedSeasonNumber] = React.useState<any>(0);
+  const [episodesToShow, setEpisodesToShow] = React.useState<number>(DEFAULT_EPISODE_NUMBER);
+  const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
 
   const handleSelectChange = (e: any) => {
     const seasonNumber = e.target.value;
@@ -13,14 +17,24 @@ function Seasons(props: any) {
     setSelectedSeason(seasons.find((season: any) => season.season_number === parseInt(seasonNumber)));
   };
 
+  const showMore = () => {
+    if (episodesToShow === DEFAULT_EPISODE_NUMBER) {
+      setEpisodesToShow(selectedSeason.episodes.length);
+      setIsExpanded(true);
+    } else {
+      setEpisodesToShow(DEFAULT_EPISODE_NUMBER);
+      setIsExpanded(false);
+    }
+  };
+
   return (
     <div className='seasons'>
-      <div>
+      {/* <div>
         <h1 className='multimedia__name'>
           Episodes
-          {/* <span> |{multimedia?.title || multimedia?.name || multimedia?.original_name}</span> */}
+          <span> || {multimedia?.title || multimedia?.name || multimedia?.original_name}</span>
         </h1>
-      </div>
+      </div> */}
       <select className='seasons__select' value={selectedSeasonNumber} onChange={handleSelectChange}>
         {seasons.map((season: any) => (
           <option value={season.season_number} key={season.id}>
@@ -33,7 +47,7 @@ function Seasons(props: any) {
         <p className='season__overview'>{selectedSeason.overview}</p>
       </div>
       <div className='episodes'>
-        {selectedSeason.episodes.map((episode: any) => (
+        {selectedSeason.episodes.slice(0, episodesToShow).map((episode: any) => (
           <div className='episode' key={episode.id}>
             <img
               key={episode.id}
@@ -47,6 +61,11 @@ function Seasons(props: any) {
             <p className='episode__overview'>{episode.overview}</p>
           </div>
         ))}
+        <div className='episode__expand'>
+          <a className='episode__expandButton' onClick={showMore}>
+            {isExpanded ? <span>Show less</span> : <span>Show more</span>}
+          </a>
+        </div>
       </div>
     </div>
   );
