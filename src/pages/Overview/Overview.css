@@ -229,6 +229,7 @@
     max-height: 250px;
     margin: 0 10px 0 4px;
     transition: transform 450ms;
+    cursor:pointer;
 
 }
 
@@ -256,6 +257,7 @@
     display: flex;
     position: relative;
     padding: 0 10px 0 4px;
+    cursor: pointer;
 }
 
 .video::after {

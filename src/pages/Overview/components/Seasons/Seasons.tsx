@@ -38,7 +38,8 @@ function Seasons(props: any) {
       <select className='seasons__select' value={selectedSeasonNumber} onChange={handleSelectChange}>
         {seasons.map((season: any) => (
           <option value={season.season_number} key={season.id}>
-            Season {season.season_number}
+            {season.name}
+            {/* Season {season.season_number} */}
           </option>
         ))}
       </select>
@@ -61,11 +62,13 @@ function Seasons(props: any) {
             <p className='episode__overview'>{episode.overview}</p>
           </div>
         ))}
-        <div className='episode__expand'>
-          <a className='episode__expandButton' onClick={showMore}>
-            {isExpanded ? <span>Show less</span> : <span>Show more</span>}
-          </a>
-        </div>
+        {selectedSeason.episodes.length > DEFAULT_EPISODE_NUMBER ? (
+          <div className='episode__expand'>
+            <a className='episode__expandButton' onClick={showMore}>
+              {isExpanded ? <span>Show less</span> : <span>Show more</span>}
+            </a>
+          </div>
+        ) : null}
       </div>
     </div>
   );

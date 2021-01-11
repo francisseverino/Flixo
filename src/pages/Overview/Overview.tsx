@@ -42,6 +42,8 @@ interface MovieDetail {
   first_air_date: string;
   homepage: string;
   last_episode_to_air: Episode;
+  episode_run_time: Array<number>;
+  number_of_seasons: number;
 }
 
 interface ExternalIds {
@@ -73,6 +75,7 @@ function Overview(props: any) {
         : `/tv/${multimediaId}?api_key=${API_KEY}&language=en-US`
     )
       .then(response => {
+        console.log(response);
         setMultimedia(response);
         if (type === 'tv') {
           getSeasons(response.number_of_seasons);
@@ -163,7 +166,7 @@ function Overview(props: any) {
     for (let n = 0; n <= numberOfSeasons; n++) {
       request(`/tv/${multimediaId}/season/${n}?api_key=${API_KEY}&language=en-US`)
         .then(response => {
-          setSeasons((prevEpisodes: any) => prevEpisodes.concat(response));
+          setSeasons((prevEpisodes: any) => prevEpisodes.concat(response).sort());
         })
         .catch(err => console.log(err));
     }
@@ -237,7 +240,13 @@ function Overview(props: any) {
                   {type === 'movie' ? multimedia?.release_date.split('-')[0] : multimedia?.first_air_date.split('-')[0]}
                 </span>
                 <span>•</span>
-                <span>{multimedia?.runtime} Mins</span>
+                <span>{type === 'tv' ? multimedia?.episode_run_time.join('-') : multimedia?.runtime} Mins</span>
+                {type === 'tv' ? (
+                  <>
+                    <span>•</span>
+                    <span>{multimedia?.number_of_seasons} Seasons</span>
+                  </>
+                ) : null}
                 <span>•</span>
                 <span>{multimedia?.genres.map((g, i) => (i ? ', ' : '') + g.name)}</span>
               </div>
@@ -256,7 +265,7 @@ function Overview(props: any) {
               </div>
               {!multimedia?.tagline ? null : <p className='overview__tagline'>"{multimedia?.tagline}"</p>}
               <h1 className='overview__descriptionTitle'>Overview</h1>
-              <p className='overview__description'>{tools.truncate(multimedia?.overview || '', 550)}</p>
+              <p className='overview__description'>{multimedia?.overview}</p>
               <Modal
                 activator={({ setShow }: any) => (
                   <button className='overview__button' onClick={() => setShow(true)}>
