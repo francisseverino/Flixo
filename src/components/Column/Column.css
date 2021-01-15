@@ -13,7 +13,7 @@
     background-image: linear-gradient(
         to left,
         transparent,
-        rgba(17,17,17,0.6),
+        rgba(17,17,17,0.5),
         #111
     );
     will-change: opacity;
