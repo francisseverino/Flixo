@@ -1,7 +1,7 @@
 import React from 'react';
 import request from '../../api/helper';
 import { BASE_IMAGE_URL, API_KEY } from '../../api/constants';
-import { Modal } from './../../components';
+import { Modal, Column } from './../../components';
 import { tools } from '../../utils';
 import './Overview.css';
 import * as FiIcons from 'react-icons/fi';
@@ -310,10 +310,11 @@ function Overview(props: any) {
       <div className='overview__footer'>
         <div className='overview__footerContent'>
           {seasons.length === 0 ? null : <Seasons seasons={seasons} multimedia={multimedia} />}
+          <h1 className='footer__sectionTitle'>Cast</h1>
           <Cast cast={cast} crew={crew} />
           <div>
             <h1 className='footer__sectionTitle'>Videos</h1>
-            <div className='videos'>
+            <Column>
               {videos.map((video: any) => (
                 <div className='video' key={video.id}>
                   <iframe
@@ -325,11 +326,11 @@ function Overview(props: any) {
                   ></iframe>
                 </div>
               ))}
-            </div>
+            </Column>
           </div>
           <div>
             <h1 className='footer__sectionTitle'>Recommendations</h1>
-            <div className='recommendations'>
+            <Column>
               {recommendations.map((recommendation: any) => (
                 <img
                   key={recommendation.id}
@@ -339,7 +340,7 @@ function Overview(props: any) {
                   alt={recommendation.title || recommendation.name || recommendation.original_name}
                 />
               ))}
-            </div>
+            </Column>
           </div>
         </div>
       </div>

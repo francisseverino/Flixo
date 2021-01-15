@@ -2,6 +2,7 @@ import React from 'react';
 import { BASE_IMAGE_URL } from '../../../../api/constants';
 import { Modal } from './../../../../components';
 import * as FiIcons from 'react-icons/fi';
+import { Column } from '../../../../components';
 import './Cast.css';
 
 interface Cast {
@@ -81,23 +82,9 @@ function Cast(props: Cast) {
 
   return (
     <div className='cast'>
-      <div className='cast__titleContainer'>
-        <span className='cast__title'>Cast:</span>
-        <Modal
-          activator={({ setShow }: any) => (
-            <button className='cast__button' onClick={() => setShow(true)}>
-              View all credits
-              <FiIcons.FiArrowRight />
-            </button>
-          )}
-        >
-          {renderCredits()}
-        </Modal>
-      </div>
-
-      <div className='cast__stars'>
-        {cast.map((star: any) => (
-          <div className='cast__star' key={star.id}>
+      <Column>
+        {cast.slice(0, 14).map((star: any) => (
+          <li className='cast__star' key={star.id}>
             {star.profile_path ? (
               <img
                 key={star.id}
@@ -115,9 +102,21 @@ function Cast(props: Cast) {
             )}
             <p className='star__name'>{star.name}</p>
             <p className='star__character'>{star.character}</p>
-          </div>
+          </li>
         ))}
-      </div>
+        <li className='cast__buttonContainer'>
+          <Modal
+            activator={({ setShow }: any) => (
+              <button className='cast__button' onClick={() => setShow(true)}>
+                View all credits
+                <FiIcons.FiArrowRight />
+              </button>
+            )}
+          >
+            {renderCredits()}
+          </Modal>
+        </li>
+      </Column>
     </div>
   );
 }

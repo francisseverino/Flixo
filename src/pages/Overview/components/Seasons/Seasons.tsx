@@ -29,22 +29,17 @@ function Seasons(props: any) {
 
   return (
     <div className='seasons'>
-      {/* <div>
-        <h1 className='multimedia__name'>
-          Episodes
-          <span> || {multimedia?.title || multimedia?.name || multimedia?.original_name}</span>
-        </h1>
-      </div> */}
       <select className='seasons__select' value={selectedSeasonNumber} onChange={handleSelectChange}>
         {seasons.map((season: any) => (
           <option value={season.season_number} key={season.id}>
             {season.name}
-            {/* Season {season.season_number} */}
           </option>
         ))}
       </select>
       <div>
-        <h2 className='season__release'>Release date: {selectedSeason.air_date.split('-')[0]}</h2>
+        {selectedSeason.air_date ? (
+          <h2 className='season__release'>Release date: {selectedSeason.air_date.split('-')[0]}</h2>
+        ) : null}
         <p className='season__overview'>{selectedSeason.overview}</p>
       </div>
       <div className='episodes'>

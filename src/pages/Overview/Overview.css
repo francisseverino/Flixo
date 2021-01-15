@@ -215,14 +215,6 @@
     margin: 0 0.3rem;
 }
 
-
-.recommendations {
-    display: flex;
-    overflow-y: hidden;
-    overflow-x: scroll;
-    padding: 20px;
-}
-
 .recommendation__poster {
     object-fit: contain;
     width: 100%;
@@ -244,14 +236,6 @@
     font-weight: 400;
     font-size: 2rem;
 }
-
-.videos {
-    display: flex;
-    overflow-y: hidden;
-    overflow-x: scroll;
-    padding: 20px;
-}
-
 
 .video {
     display: flex;

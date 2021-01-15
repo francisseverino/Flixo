@@ -29,6 +29,7 @@ function Row(props: RowData) {
   const handleClick = (multimedia: MultimediaData) => {
     const type = multimedia.first_air_date ? 'tv' : 'movie';
     history.push(`/overview/${type}-${multimedia.id}`);
+    window.scrollTo(0, 0);
   };
 
   return (
