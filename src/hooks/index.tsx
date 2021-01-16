@@ -1,4 +1,3 @@
-import React from 'react';
-// import useSomeHook from './useSomeHook';
+import useOnClickOutside from './useOnClickOutside';
 
-// export { useSomeHook };
+export { useOnClickOutside };

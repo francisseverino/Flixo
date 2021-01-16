@@ -1,0 +1,60 @@
+.column {
+    position: relative;
+}
+
+.column__left {
+    content: '';
+    width: 60px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background-image: linear-gradient(
+        to left,
+        transparent,
+        rgba(17,17,17,0.5),
+        #111
+    );
+    will-change: opacity;
+    pointer-events: none;
+}
+
+.column__right {
+    content: '';
+    width: 60px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: linear-gradient(
+        to right,
+        transparent,
+        rgba(17,17,17,0.6),
+        #111
+    );
+    will-change: opacity;
+    pointer-events: none;
+}
+
+.column__fading {
+    transition: linear 0.3s;
+    opacity: 1;
+}
+
+.column__hidden {
+    transition: linear 0.3s;
+    opacity: 0;
+}
+
+.column__items {
+    position: relative;
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding: 20px;
+}
+
+.column__items::-webkit-scrollbar {
+    display: none;
+}

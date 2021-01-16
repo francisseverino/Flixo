@@ -1,4 +1,4 @@
-export interface MovieData {
+export interface MultimediaData {
   id: number;
   name: string;
   title: string;
@@ -6,4 +6,5 @@ export interface MovieData {
   poster_path: string;
   backdrop_path: string;
   overview: string;
+  first_air_date: string;
 }

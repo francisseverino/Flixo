@@ -1,0 +1,282 @@
+.overview {
+    box-sizing: border-box;
+    overflow-y: scroll;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* height: 1000px; */
+}
+
+.overview::-webkit-scrollbar {
+    display: none;
+}
+
+.overview__header { 
+    
+}
+
+.overview__headerOverlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(24, 24, 24, 0.6);
+}
+
+.overview__headerContents {
+    display: flex;
+    align-items: center;
+    max-width: 1300px;
+    color: white;
+    min-height: 840px;
+    padding: 20px
+    /* flex-wrap: wrap; */
+}
+
+.overview__headerGradient {
+    width: 100%;
+    height: 7.2rem;
+    background-image: linear-gradient(
+        180deg,
+        transparent,
+        rgba(17,17,17,0.6),
+        #111
+    )
+}
+
+.overview__footerButton {
+    padding: 1rem;
+    text-align: center;
+    color: red;
+    font-size: 4rem;
+}
+
+.overview__footer {
+    background-color: #111;
+}
+
+.overview__footerContent {
+    max-width: 1544px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.overview__poster {
+    object-fit: contain;
+    width: 300px;
+    max-height: 450px;
+    margin-right: 40px;
+    border-radius: 10px;
+}
+
+.overview__title {
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+.overview__extra {
+    display: flex;
+    padding-top: 0.2rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.overview__extra span {
+    margin: 2px;
+}
+
+.rate {
+    display: flex;
+    padding: 1.2rem 0;
+    align-items: center;
+}
+
+.rate__icon {
+    font-size: 2rem;
+    padding-right: 0.4rem;
+}
+
+.rate_rating {
+    font-weight: 550;
+    font-size: 1.2rem;
+}
+
+.rate_count {
+    font-weight: 350;
+    font-size: 0.8rem;
+}
+
+.links {
+    padding-left: 1rem;
+}
+
+.link__icon {
+    font-size: 1.5rem;
+    padding: 0 0.5rem;
+    color: white;
+}
+
+.overview__tagline {
+    opacity: 0.8;
+    font-style: italic;
+    padding-bottom: 1rem;
+}
+
+.overview__description {
+    /* width: 45rem; */
+    line-height: 1.4;
+    padding-bottom: 1.2rem;
+    font-size: 0.95rem;
+    /* max-width: 460px; */
+}
+
+.overview__descriptionTitle {
+    padding-bottom: 0.6rem;
+    font-size: 1.3rem;
+}
+
+.overview__button {
+    display: flex;
+    cursor: pointer;
+    color: #fff;
+    outline: none;
+    font-weight: 700;
+    border-radius: 4px;
+    border: 1px solid #fff;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-right: 1rem;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+}
+
+.overview__buttonIcon {
+    padding-right: 8px;
+    /* font-weight: 500; */
+    font-size: 1rem;
+}
+
+.overview__button:hover {
+    color: #000;
+    background-color: #e6e6e6;
+    transition: all 0.2s;
+}
+
+/* YouTube iframe */
+.video__container {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    width:100%;
+}
+
+.video__container::after {
+    padding-top: 56.25%;
+    display: block;
+    content: '';
+}
+
+.video__container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.providers {
+    display: flex;
+    max-width: 800px;
+    max-height: 800px;
+}
+
+.providers__container {
+    display: flex;
+    overflow-y: scroll;
+    padding-top: 1.2rem;
+}
+
+.providers::-webkit-scrollbar {
+    display: none;
+}
+
+.providers__title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.provider__poster {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin: 0 0.3rem;
+}
+
+.recommendation__poster {
+    object-fit: contain;
+    width: 100%;
+    max-height: 250px;
+    margin: 0 10px 0 4px;
+    transition: transform 450ms;
+    cursor:pointer;
+
+}
+
+.recommendation__poster:hover {
+    transform: scale(1.08);
+}
+
+.footer__sectionTitle {
+    color: #fff;
+    padding: 2rem 0 0.5rem 0;
+    /* text-align: center; */
+    font-weight: 400;
+    font-size: 2rem;
+}
+
+.video {
+    display: flex;
+    position: relative;
+    padding: 0 10px 0 4px;
+    cursor: pointer;
+}
+
+.video::after {
+    padding-top: 56.25%;
+    display: block;
+    content: '';
+    
+}
+
+.video iframe {
+    width: 500px;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .overview__poster {
+        margin-right: 0; 
+        margin-top: 9rem;
+    }
+
+    .overview__right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top:40px;
+    }
+    
+    .overview__description {
+        text-align: center;
+        margin: 0 1.5rem;
+    }
+
+    .overview__headerContents {
+        flex-wrap: wrap;
+        justify-content: center;;
+    }
+}

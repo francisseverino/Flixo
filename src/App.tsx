@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Nav } from './components';
 import './App.css';
-import { Home, Movies, Shows } from './pages';
+import { Home, Movies, Shows, Overview } from './pages';
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Route path='/shows'>
           <Shows />
         </Route>
+        <Route path='/overview/:multimediaId' component={Overview} />
       </Switch>
     </Router>
   );

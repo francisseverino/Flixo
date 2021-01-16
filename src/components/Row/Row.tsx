@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import request from '../../api/helper';
 import './Row.css';
-import { MovieData } from '../../types';
-import YouTube from 'react-youtube';
-const movieTrailer = require('movie-trailer');
+import { MultimediaData } from '../../types';
+import { useHistory } from 'react-router-dom';
 
 interface RowData {
   title: string;
@@ -15,60 +14,38 @@ const BASE_URL = 'https://image.tmdb.org/t/p/original/';
 
 function Row(props: RowData) {
   const { title, fetchUrl, isLargeRow } = props;
+  const history = useHistory();
 
-  const [movies, setMovies] = useState<Array<MovieData>>([]);
-  const [trailerUrl, setTrailerUrl] = useState<string>('');
+  const [multimedia, setMultimedia] = useState<Array<MultimediaData>>([]);
 
   useEffect(() => {
     request(fetchUrl)
       .then(response => {
-        setMovies(response.results);
+        setMultimedia(response.results);
       })
       .catch(err => console.log(err));
   }, [fetchUrl]);
 
-  const handleClick = (movie: MovieData) => {
-    if (trailerUrl) {
-      setTrailerUrl('');
-    } else {
-      //TODO: find an alternative to movie-trailer
-      movieTrailer('finding nemo') //movie?.name || ''
-        .then((url: any) => {
-          console.log(url);
-          const urlParams = new URLSearchParams(new URL(url).search);
-          setTrailerUrl(urlParams.get('v') || '');
-        })
-        .catch((err: Error) => console.log(err));
-    }
+  const handleClick = (multimedia: MultimediaData) => {
+    const type = multimedia.first_air_date ? 'tv' : 'movie';
+    history.push(`/overview/${type}-${multimedia.id}`);
+    window.scrollTo(0, 0);
   };
 
   return (
     <div className='row'>
       <h2 className='row__title'>{title}</h2>
       <div className='row__posters'>
-        {movies.map(movie => (
+        {multimedia.map(multimedia => (
           <img
-            key={movie.id}
-            onClick={() => handleClick(movie)}
+            key={multimedia.id}
+            onClick={() => handleClick(multimedia)}
             className={`row__poster ${isLargeRow && 'row_posterLarge'}`}
-            src={`${BASE_URL}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
-            alt={movie.name}
+            src={`${BASE_URL}${isLargeRow ? multimedia.poster_path : multimedia.backdrop_path}`}
+            alt={multimedia.name}
           />
         ))}
       </div>
-      {trailerUrl && (
-        <YouTube
-          videoId={trailerUrl}
-          opts={{
-            height: '390',
-            width: '100%',
-            playerVars: {
-              // https://developers.google.com/youtube/player_parameters
-              autoplay: 1,
-            },
-          }}
-        />
-      )}
     </div>
   );
 }
