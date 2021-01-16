@@ -75,7 +75,6 @@ function Overview(props: any) {
         : `/tv/${multimediaId}?api_key=${API_KEY}&language=en-US`
     )
       .then(response => {
-        console.log(response);
         setMultimedia(response);
         if (type === 'tv') {
           getSeasons(response.number_of_seasons);

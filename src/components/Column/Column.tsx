@@ -7,15 +7,12 @@ function Column(props: any) {
   const [showRight, setShowRight] = React.useState(true);
   const childRef = React.createRef<HTMLUListElement>();
   React.useEffect(() => {
-    const el = document.querySelector('.column__items');
-
     childRef.current?.addEventListener('scroll', handleScroll);
 
     return () => {
       childRef.current?.removeEventListener('scroll', handleScroll);
     };
-    // get scroll position in px
-  }, []);
+  }, [childRef]);
 
   const handleScroll = (e: any) => {
     const scroll = e.target.scrollLeft;

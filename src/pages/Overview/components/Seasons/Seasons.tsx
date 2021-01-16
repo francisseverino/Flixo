@@ -5,7 +5,7 @@ import './Seasons.css';
 const DEFAULT_EPISODE_NUMBER = 8;
 
 function Seasons(props: any) {
-  const { seasons, multimedia } = props;
+  const { seasons } = props;
   const [selectedSeason, setSelectedSeason] = React.useState<any>(seasons[0]);
   const [selectedSeasonNumber, setSelectedSeasonNumber] = React.useState<any>(0);
   const [episodesToShow, setEpisodesToShow] = React.useState<number>(DEFAULT_EPISODE_NUMBER);
