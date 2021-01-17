@@ -9,18 +9,24 @@ import './Banner.css';
 function Banner() {
   const history = useHistory();
   const [multimedia, setMultimedia] = React.useState<MultimediaData>();
+  const [type, setType] = React.useState<string>('');
 
   React.useEffect(() => {
     request(requests.trendingAll).then(response => {
       const randomIndex = Math.floor(Math.random() * response.results.length - 1);
-      setMultimedia(response.results[randomIndex]);
+      const chosenMultimedia = response.results[randomIndex];
+      setType(chosenMultimedia.first_air_date ? 'tv' : 'movie');
+      setMultimedia(chosenMultimedia);
     });
   }, []);
 
   const handleClick = (multimedia: any) => {
-    const type = multimedia.first_air_date ? 'tv' : 'movie';
     history.push(`/overview/${type}-${multimedia.id}`);
   };
+
+  if (!multimedia) {
+    return null;
+  }
 
   return (
     <header
@@ -36,16 +42,16 @@ function Banner() {
       <div className='banner__contents'>
         <h1 className='banner__title'>{multimedia?.title || multimedia?.name || multimedia?.original_name}</h1>
 
-        <h1 className='banner__description'>{tools.truncate(multimedia?.overview || '', 150)}</h1>
+        <h1 className='banner__description'>{tools.truncate(multimedia?.overview || '', 350)}</h1>
         <div className='banner__buttons'>
-          <button className='banner__button'>Play</button>
           <button className='banner__button' onClick={() => handleClick(multimedia)}>
             More Info
           </button>
         </div>
       </div>
+      <div className='banner--fadeLeft' />
 
-      <div className='banner--fadeBottom' />
+      {/* <div className='banner--fadeBottom' /> */}
     </header>
   );
 }

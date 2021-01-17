@@ -8,43 +8,7 @@ import * as FiIcons from 'react-icons/fi';
 import * as FaIcons from 'react-icons/fa';
 import { Cast, Seasons } from './components';
 import { useHistory } from 'react-router-dom';
-interface genres {
-  id: number;
-  name: string;
-}
-
-interface Episode {
-  id: string;
-  name: string;
-  season_number: string;
-  air_date: string;
-  episode_number: string;
-  overview: string;
-  still_path: string;
-  vote_average: string;
-  vote_count: string;
-}
-
-interface MovieDetail {
-  id: number;
-  name: string;
-  title: string;
-  original_name: string;
-  tagline: string;
-  poster_path: string;
-  backdrop_path: string;
-  overview: string;
-  release_date: string;
-  runtime: number;
-  genres: Array<genres>;
-  vote_average: number;
-  vote_count: number;
-  first_air_date: string;
-  homepage: string;
-  last_episode_to_air: Episode;
-  episode_run_time: Array<number>;
-  number_of_seasons: number;
-}
+import { MultimediaData } from '../../types';
 
 interface ExternalIds {
   imdb_id: string;
@@ -56,7 +20,7 @@ interface ExternalIds {
 
 function Overview(props: any) {
   const [type, multimediaId] = props.match.params.multimediaId.split('-');
-  const [multimedia, setMultimedia] = React.useState<MovieDetail>();
+  const [multimedia, setMultimedia] = React.useState<MultimediaData>();
   const [crew, setCrew] = React.useState<any>([]);
   const [cast, setCast] = React.useState<any>([]);
   const [providers, setProviders] = React.useState<any>([]);

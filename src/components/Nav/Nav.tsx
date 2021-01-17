@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import * as FiIcons from 'react-icons/fi';
 import './Nav.css';
 
-function Sidebar() {
+function Nav() {
   const [show, handleShow] = React.useState<boolean>(true);
   const scrollPosition = React.useRef<number>(window.scrollY);
 
@@ -51,4 +51,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+export default Nav;
