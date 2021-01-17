@@ -31,14 +31,16 @@ function Column(props: any) {
   };
 
   return (
-    <div className='column'>
+    <>
       <h2 className='column__title'>{title}</h2>
-      <div className={`column__left ${showLeft ? 'column__fading' : 'column__hidden'}`} />
-      <ul className='column__items' ref={childRef}>
-        {children}
-      </ul>
-      <div className={`column__right ${showRight ? 'column__fading' : 'column__hidden'}`} />
-    </div>
+      <div className='column'>
+        <div className={`column__left ${showLeft ? 'column__fading' : 'column__hidden'}`} />
+        <ul className='column__items' ref={childRef}>
+          {children}
+        </ul>
+        <div className={`column__right ${showRight ? 'column__fading' : 'column__hidden'}`} />
+      </div>
+    </>
   );
 }
 

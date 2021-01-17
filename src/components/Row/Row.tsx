@@ -3,6 +3,7 @@ import request from '../../api/helper';
 import './Row.css';
 import { MultimediaData } from '../../types';
 import { useHistory } from 'react-router-dom';
+import Column from '../Column';
 
 interface RowData {
   title: string;
@@ -33,20 +34,20 @@ function Row(props: RowData) {
   };
 
   return (
-    <div className='row'>
-      <h2 className='row__title'>{title}</h2>
-      <div className='row__posters'>
-        {multimedia.map(multimedia => (
-          <img
-            key={multimedia.id}
-            onClick={() => handleClick(multimedia)}
-            className={`row__poster ${isLargeRow && 'row_posterLarge'}`}
-            src={`${BASE_URL}${isLargeRow ? multimedia.poster_path : multimedia.backdrop_path}`}
-            alt={multimedia.name}
-          />
-        ))}
-      </div>
-    </div>
+    <Column title={title}>
+      {multimedia.map(multimedia => (
+        <img
+          key={multimedia.id}
+          onClick={() => handleClick(multimedia)}
+          className={'row__poster'}
+          src={`${BASE_URL}${multimedia.poster_path}`}
+          // className={`row__poster ${isLargeRow && 'row_posterLarge'}`}
+          // src={`${BASE_URL}${isLargeRow ? multimedia.poster_path : multimedia.backdrop_path}`}
+
+          alt={multimedia.name}
+        />
+      ))}
+    </Column>
   );
 }
 
