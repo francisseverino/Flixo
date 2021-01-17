@@ -2,7 +2,7 @@ import React from 'react';
 import './Column.css';
 
 function Column(props: any) {
-  const { children } = props;
+  const { title, children } = props;
   const [showLeft, setShowLeft] = React.useState(false);
   const [showRight, setShowRight] = React.useState(true);
   const childRef = React.createRef<HTMLUListElement>();
@@ -32,6 +32,7 @@ function Column(props: any) {
 
   return (
     <div className='column'>
+      <h2 className='column__title'>{title}</h2>
       <div className={`column__left ${showLeft ? 'column__fading' : 'column__hidden'}`} />
       <ul className='column__items' ref={childRef}>
         {children}

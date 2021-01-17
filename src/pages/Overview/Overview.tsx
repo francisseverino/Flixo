@@ -309,11 +309,9 @@ function Overview(props: any) {
       <div className='overview__footer'>
         <div className='overview__footerContent'>
           {seasons.length === 0 ? null : <Seasons seasons={seasons} multimedia={multimedia} />}
-          <h1 className='footer__sectionTitle'>Cast</h1>
           <Cast cast={cast} crew={crew} />
           <div>
-            <h1 className='footer__sectionTitle'>Videos</h1>
-            <Column>
+            <Column title='Videos'>
               {videos.map((video: any) => (
                 <div className='video' key={video.id}>
                   <iframe
@@ -328,8 +326,7 @@ function Overview(props: any) {
             </Column>
           </div>
           <div>
-            <h1 className='footer__sectionTitle'>Recommendations</h1>
-            <Column>
+            <Column title='Recommendations'>
               {recommendations.map((recommendation: any) => (
                 <img
                   key={recommendation.id}

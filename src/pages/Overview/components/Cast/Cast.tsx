@@ -82,7 +82,7 @@ function Cast(props: Cast) {
 
   return (
     <div className='cast'>
-      <Column>
+      <Column title='Cast'>
         {cast.slice(0, 14).map((star: any) => (
           <li className='cast__star' key={star.id}>
             {star.profile_path ? (
