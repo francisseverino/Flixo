@@ -58,10 +58,12 @@ function Seasons(props: any) {
           </div>
         ))}
         {selectedSeason.episodes.length > DEFAULT_EPISODE_NUMBER ? (
+          <div className='episode__expand__container'>
           <div className='episode__expand'>
             <a className='episode__expandButton' onClick={showMore}>
               {isExpanded ? <span>Show less</span> : <span>Show more</span>}
             </a>
+          </div>
           </div>
         ) : null}
       </div>

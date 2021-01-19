@@ -101,7 +101,8 @@
 }
 
 .episode__expand {
-    display: flex;
+    padding: 2em 0;
+    text-align: center;
 }
 
 .episode__expandButton {
@@ -109,4 +110,9 @@
     text-align: center;
     font-size: 2rem;
     cursor: pointer;
+}
+
+.episode__expand__container {
+    display: block;
+    width: 100%;
 }

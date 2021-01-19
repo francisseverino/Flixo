@@ -92,14 +92,15 @@
 }
 
 .star__name {
-    padding: 10px 10px 0 10px;
+    padding: 10px 10px 2px 10px;
     font-size: 0.9rem;
-    font-weight: 550;
+    /* font-weight: 550; */
 }
 
 .star__character {
     padding: 0 10px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    color: rgba(17,17,17,0.7)
 }
 
 

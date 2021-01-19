@@ -42,7 +42,7 @@ function Banner() {
       <div className='banner__contents'>
         <h1 className='banner__title'>{multimedia?.title || multimedia?.name || multimedia?.original_name}</h1>
 
-        <h1 className='banner__description'>{tools.truncate(multimedia?.overview || '', 350)}</h1>
+        <h1 className='banner__description'>{tools.truncate(multimedia?.overview || '', 250)}</h1>
         <div className='banner__buttons'>
           <button className='banner__button' onClick={() => handleClick(multimedia)}>
             More Info
