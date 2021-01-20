@@ -16,25 +16,12 @@
     align-self: flex-start;
     font-size: 1.4rem;
     padding: 1rem 0;
-    /* display: flex;
-    width: 200px; */
 }
 
 .multimedia__name {
     padding: 0.5rem 0;
-    /* text-align: center; */
     font-weight: 400;
     font-size: 2rem;
-}
-
-/* .multimedia__name span{
-    font-size: 1.4rem;
-    color: rgba(225,225,225,0.6);
-
-} */
-
-.season {
-
 }
 
 .season__poster {
@@ -65,14 +52,12 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    /* flex-direction: column; */
 }
 .episode {
     display: flex;
     flex-direction: column;
     width: 360px;
     margin: 8px
-    /* flex-direction: column; */
 }
 
 .episode__container {
@@ -82,9 +67,7 @@
 
 .episode__poster {
     object-fit: contain;
-    /* width: 180px; */
     height: 220px;
-    /* margin: 10px 10px; */
     border-radius: 10px;
 }
 
@@ -95,7 +78,6 @@
 }
 
 .episode__overview {
-    /* max-width: 80%; */
     font-size: 0.8rem;
     color: rgba(225,225,225,0.6);
 }

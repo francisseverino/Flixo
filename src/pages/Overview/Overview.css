@@ -1,17 +1,10 @@
 .overview {
     box-sizing: border-box;
     overflow-y: scroll;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* height: 1000px; */
 }
 
 .overview::-webkit-scrollbar {
     display: none;
-}
-
-.overview__header { 
-    
 }
 
 .overview__headerOverlay {
@@ -29,7 +22,6 @@
     color: white;
     min-height: 840px;
     padding: 20px
-    /* flex-wrap: wrap; */
 }
 
 .overview__headerGradient {

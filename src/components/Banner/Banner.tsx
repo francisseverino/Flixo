@@ -49,7 +49,7 @@ function Banner() {
           </button>
         </div>
       </div>
-      <div className='banner--fadeLeft' />
+      <div className='banner__fadeLeft' />
 
       {/* <div className='banner--fadeBottom' /> */}
     </header>

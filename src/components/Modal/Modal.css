@@ -48,18 +48,6 @@
     cursor: pointer;
   }
   
-  /* .modal__close {
-    position: absolute;
-    top: -24px;
-    right: 0;
-    padding: 5px;
-    border: 0;
-    -webkit-appearance: none;
-    background: none;
-    color: white;
-    cursor: pointer;
-  } */
-  
   .modal__body {
     /* max-height: 1200px; */
     padding: 20px 24px;
