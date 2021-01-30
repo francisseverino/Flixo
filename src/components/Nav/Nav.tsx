@@ -24,7 +24,7 @@ const NAV_DATA = [
 
 function Nav() {
   const [show, handleShow] = React.useState<boolean>(true);
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [open, setOpen] = React.useState<boolean>(true);
   const [selected, setSelected] = React.useState<string>('Home');
   const scrollPosition = React.useRef<number>(window.scrollY);
 
